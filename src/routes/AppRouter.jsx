@@ -10,6 +10,7 @@ import HomeAdmin from "../pages/Admin/Home/Home";
 
 import Login from "../auth/Login";
 import Cookies from "js-cookie";
+import Create_User from "../pages/Admin/User/Create_User";
 export const AppRouter = () => {
   const authToken = Cookies.get("token");
   return (
@@ -20,11 +21,12 @@ export const AppRouter = () => {
           path="/login"
           element={authToken ? <Navigate to="/admin" /> : <Login />}
         />
-        <Route path="/Admin" element={<HomeAdmin />} />
+        <Route path="/admin" element={<HomeAdmin />} />
         <Route
-          path="/Admin/Frente_Eleccion"
+          path="/admin/Frente_Eleccion"
           element={<Frente_Candidatos_Eleccion />}
         />
+        <Route path="/admin/user" element={<Create_User />} />
       </Routes>
     </Router>
   );

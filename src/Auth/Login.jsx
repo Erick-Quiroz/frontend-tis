@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 import Client from "../components/layout/client/Client";
 
 const Login = () => {
-  const [email, setEmail] = useState("mellfitness@gmail.com");
-  const [password, setPassword] = useState("mellfitness2023");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(""); // Variable de estado para el mensaje de error
   const navigate = useNavigate();
 

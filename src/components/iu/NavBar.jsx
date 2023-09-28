@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import LocalMallIcon from "@mui/icons-material/LocalMall";
 import { iconsList } from "./items/IconsList";
-
+import PeopleIcon from "@mui/icons-material/People";
 import { Drawer } from "../layout/admin/AdminComponents";
 import { CustomListItem } from "./items/CustomListItem";
 const NavBar = ({ open, mode }) => {
@@ -81,6 +81,14 @@ const NavBar = ({ open, mode }) => {
           to="/Admin/Frente_Eleccion"
           text="Frente Eleccion"
           icon={<LocalMallIcon />}
+          onClick={handleLinkClick}
+        />
+        <Divider />
+
+        <CustomListItem
+          to="/admin/user"
+          text="User"
+          icon={<PeopleIcon />}
           onClick={handleLinkClick}
         />
       </List>
