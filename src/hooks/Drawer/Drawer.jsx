@@ -9,19 +9,8 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import Form_User from "../Forms/Form_User";
 
-export default function Drawer_User({
-  isOpen,
-  onClose,
-  selectedProduct,
-  edit,
-  getProduct,
-}) {
-  const handleCloseDrawer = () => {
-    onClose();
-  };
-
+export default function Drawer_User({ isOpen, onClose, edit, name, form }) {
   return (
     <Drawer
       anchor="right"
@@ -37,12 +26,12 @@ export default function Drawer_User({
           <ListItem>
             {edit ? (
               <ListItemText
-                primary="Actualizar Frente con candidatos"
+                primary={`Actualizar ${name} `}
                 primaryTypographyProps={{ fontWeight: 700 }}
               />
             ) : (
               <ListItemText
-                primary="Registrar Usuario"
+                primary={`${name}`}
                 primaryTypographyProps={{ fontWeight: 700 }}
               />
             )}
@@ -54,12 +43,8 @@ export default function Drawer_User({
           </ListItem>
         </List>
         <Divider />
-        <Form_User
-          onClose={handleCloseDrawer}
-          selectedProduct={selectedProduct}
-          edit={edit}
-          getProduct={getProduct}
-        />
+
+        {form}
       </Box>
     </Drawer>
   );
@@ -70,4 +55,6 @@ Drawer_User.propTypes = {
   selectedProduct: PropTypes.object,
   edit: PropTypes.bool.isRequired,
   getProduct: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  form: PropTypes.node.isRequired,
 };

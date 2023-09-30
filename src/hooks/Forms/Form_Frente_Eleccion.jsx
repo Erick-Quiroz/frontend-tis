@@ -11,7 +11,12 @@ import dayjs from "dayjs";
 import { postProduct, putApi } from "../../api/api";
 import { Box, Button, Grid } from "@mui/material";
 
-const ProductForm = ({ onClose, selectedProduct, edit, getProduct }) => {
+const Form_Frente_Eleccion = ({
+  onClose,
+  selectedProduct,
+  edit,
+  getProduct,
+}) => {
   const [name, setProductName] = useState("");
   const [price, setProductPrice] = useState("");
   const [quantity, setProductQuantity] = useState("");
@@ -390,9 +395,9 @@ const ProductForm = ({ onClose, selectedProduct, edit, getProduct }) => {
   );
 };
 
-export default ProductForm;
+export default Form_Frente_Eleccion;
 
-ProductForm.propTypes = {
+Form_Frente_Eleccion.propTypes = {
   onClose: PropTypes.func.isRequired,
   selectedProduct: PropTypes.object,
   edit: PropTypes.bool.isRequired,

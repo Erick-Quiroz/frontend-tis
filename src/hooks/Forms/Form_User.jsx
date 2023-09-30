@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   FormControl,
@@ -10,42 +10,64 @@ import {
 } from "@mui/material";
 
 import { Box, Button } from "@mui/material";
-import { postProduct, putApi } from "../../api/api";
-import { Success } from "../Alerts/Success";
-import { Danger } from "../Alerts/Danger";
 
-const Form_User = ({ onClose, selectedProduct, edit, getProduct }) => {
+const Form_User = ({ onClose, edit }) => {
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
     sis: "",
     phone: "",
     facultad: "",
+    carrera: "",
     cargo: "",
   });
+
+  const [showCarreraFacultad, setShowCarreraFacultad] = useState(false);
+  const [carreras, setCarreras] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
       [name]: value,
+      facultad: "",
+      carrera: "",
     });
+
+    if (name === "cargo" && value === "Option1") {
+      setShowCarreraFacultad(true);
+    } else {
+      setShowCarreraFacultad(false);
+    }
+  };
+
+  const handleFacultadChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    if (value === "Option1") {
+      setCarreras(["Veterinaria "]);
+    } else if (value === "Option2") {
+      setCarreras([
+        "Ing. Sistemas",
+        "Ing. Electronica",
+        "Ing. Eletrica",
+        "Ing. Civil",
+        "Ing. Industrial",
+      ]);
+    } else {
+      setCarreras([]);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      if (edit) {
-        await putApi(selectedProduct.id, formData);
-      } else {
-        // await postProduct(formData);
-        console.log(formData);
-      }
-
-      if (getProduct) {
-        getProduct();
-      }
+      // Tu lógica de manejo de envío de datos aquí
 
       onClose();
     } catch (error) {
@@ -109,44 +131,6 @@ const Form_User = ({ onClose, selectedProduct, edit, getProduct }) => {
             />
           </Box>
           <Box sx={{ mt: 2, marginBottom: 2 }}>
-            <TextField
-              required
-              label="Telefono/Celular"
-              variant="outlined"
-              fullWidth
-              type="number"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-            />
-          </Box>
-          <Box sx={{ mt: 2, marginBottom: 2 }}>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel htmlFor="cargo">Facultad</InputLabel>
-              <Select
-                required
-                label="Facultad"
-                name="facultad"
-                value={formData.facultad}
-                onChange={handleChange}
-                inputProps={{
-                  name: "facultad",
-                  id: "facultad",
-                }}
-              >
-                <MenuItem value="Option1">Facultad de veterinaria</MenuItem>
-                <MenuItem value="Option2">
-                  Facultad de Ciencias y tecnologia
-                </MenuItem>
-                <MenuItem value="Option3">Facultad de Humanidades</MenuItem>
-                <MenuItem value="Option4">Facultad de Derecho</MenuItem>
-                <MenuItem value="Option5">Facultad de Medicina</MenuItem>
-                <MenuItem value="Option6">Facultad de Arquitectura</MenuItem>
-              </Select>
-            </FormControl>
-          </Box>
-
-          <Box sx={{ mt: 2, marginBottom: 2 }}>
             <FormControl fullWidth variant="outlined">
               <InputLabel htmlFor="cargo">Cargo</InputLabel>
               <Select
@@ -162,11 +146,76 @@ const Form_User = ({ onClose, selectedProduct, edit, getProduct }) => {
               >
                 <MenuItem value="Option1">Estudiante</MenuItem>
                 <MenuItem value="Option2">Docente</MenuItem>
-                <MenuItem value="Option3">otro</MenuItem>
-                {/* Add more options as needed */}
+                <MenuItem value="Option3">Otro</MenuItem>
               </Select>
             </FormControl>
           </Box>
+          <Box sx={{ mt: 2, marginBottom: 2 }}>
+            <TextField
+              required
+              label="Telefono/Celular"
+              variant="outlined"
+              fullWidth
+              type="number"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </Box>
+
+          {showCarreraFacultad && (
+            <Box sx={{ mt: 2, marginBottom: 2 }}>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="facultad">Facultad</InputLabel>
+                <Select
+                  required
+                  label="Facultad"
+                  name="facultad"
+                  value={formData.facultad}
+                  onChange={handleFacultadChange}
+                  inputProps={{
+                    name: "facultad",
+                    id: "facultad",
+                  }}
+                >
+                  <MenuItem value="Option1">Facultad de veterinaria</MenuItem>
+                  <MenuItem value="Option2">
+                    Facultad de Ciencias y tecnologia
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          )}
+
+          {showCarreraFacultad && (
+            <Box sx={{ mt: 2, marginBottom: 2 }}>
+              <FormControl fullWidth variant="outlined">
+                <InputLabel htmlFor="carrera">Carrera</InputLabel>
+                <Select
+                  required
+                  label="Carrera"
+                  name="carrera"
+                  value={formData.carrera}
+                  onChange={(e) => {
+                    setFormData({
+                      ...formData,
+                      carrera: e.target.value,
+                    });
+                  }}
+                  inputProps={{
+                    name: "carrera",
+                    id: "carrera",
+                  }}
+                >
+                  {carreras.map((carrera, index) => (
+                    <MenuItem key={index} value={carrera}>
+                      {carrera}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+          )}
         </FormControl>
 
         <Box sx={{ mt: 2 }}>

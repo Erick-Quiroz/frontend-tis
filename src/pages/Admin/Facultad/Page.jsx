@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import { Admin } from "../../../components/layout/admin/Admin";
 import { Grid, Typography } from "@mui/material";
 import { containerChartStyles } from "../Home/utils/HomeStyles";
-import TableProducts from "../../../hooks/Table/Table_Frente_Eleccion";
+import Table_User from "../../../hooks/Table/Table_User";
 import ButtonProducts from "../../../hooks/utils/Button";
 
 import Drawer from "../../../hooks/Drawer/Drawer";
-import { getApi } from "../../../api/api";
-import Form_Frente_Eleccion from "../../../hooks/Forms/Form_Frente_Eleccion";
+// import { getApi } from "../../../api/api";
 
-const Product = () => {
-  const name = "Asociacion Frente Eleccion";
+import Form_Facultad from "../../../hooks/Forms/Form_Facultad";
+
+const Page_Facultad = () => {
+  const name = "Facultad";
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [product, setProduct] = useState({});
   const [edit, setedit] = useState(false);
@@ -38,9 +40,9 @@ const Product = () => {
   };
   async function getProduct() {
     try {
-      const productsData = await getApi("product");
-      setProduct(productsData);
-      console.log(productsData);
+      // const productsData = await getApi("product");
+      // setProduct(productsData);
+      // console.log(productsData);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -60,7 +62,7 @@ const Product = () => {
                 variant="h4"
                 sx={{ borderBottom: "2px solid black", width: "100%" }}
               >
-                Frente con candidatos
+                {name}
               </Typography>
 
               <ButtonProducts
@@ -75,7 +77,7 @@ const Product = () => {
         <Grid item xs={12} md={12} lg={12}>
           <Grid container style={containerChartStyles}>
             <Grid item xs={12}>
-              <TableProducts
+              <Table_User
                 products={product}
                 handleEdit={handleEdit}
                 openDrawer={openDrawer}
@@ -95,7 +97,7 @@ const Product = () => {
           getProduct={getProduct}
           name={name}
           form={
-            <Form_Frente_Eleccion
+            <Form_Facultad
               onClose={closeDrawer}
               selectedProduct={selectedProduct}
               edit={edit}
@@ -108,4 +110,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default Page_Facultad;

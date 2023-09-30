@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 
 import CssBaseline from "@mui/material/CssBaseline";
 
-import Header from "../../iu/Header";
-import NavBar from "../../iu/NavBar";
+import Header from "../../iu/admin/Header";
+import NavBar from "../../iu/admin/NavBar";
 import PropTypes from "prop-types";
 import { DrawerHeader } from "./AdminComponents";
 

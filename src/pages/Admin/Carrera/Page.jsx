@@ -5,10 +5,14 @@ import { containerChartStyles } from "../Home/utils/HomeStyles";
 import Table_User from "../../../hooks/Table/Table_User";
 import ButtonProducts from "../../../hooks/utils/Button";
 
-import Drawer_User from "../../../hooks/Drawer/Drawer_User";
+import Drawer from "../../../hooks/Drawer/Drawer";
 import { getApi } from "../../../api/api";
 
-const Create_User = () => {
+import Form_Carrera from "../../../hooks/Forms/Form_Carrera";
+
+const Page_Carrera = () => {
+  const name = "Carrera";
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [product, setProduct] = useState({});
   const [edit, setedit] = useState(false);
@@ -58,7 +62,7 @@ const Create_User = () => {
                 variant="h4"
                 sx={{ borderBottom: "2px solid black", width: "100%" }}
               >
-                Usuarios
+                {name}
               </Typography>
 
               <ButtonProducts
@@ -85,16 +89,25 @@ const Create_User = () => {
         </Grid>
       </Grid>
       <div>
-        <Drawer_User
+        <Drawer
           isOpen={drawerOpen}
           onClose={closeDrawer}
           selectedProduct={selectedProduct}
           edit={edit}
           getProduct={getProduct}
+          name={name}
+          form={
+            <Form_Carrera
+              onClose={closeDrawer}
+              selectedProduct={selectedProduct}
+              edit={edit}
+              getProduct={getProduct}
+            />
+          }
         />
       </div>
     </Admin>
   );
 };
 
-export default Create_User;
+export default Page_Carrera;

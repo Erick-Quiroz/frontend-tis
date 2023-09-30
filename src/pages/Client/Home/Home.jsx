@@ -1,5 +1,38 @@
 // import React from "react";
 
+import Client from "../../../components/layout/client/Client";
+
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <Client>
+      Hola <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+      <div>as</div>
+    </Client>
+  );
 }

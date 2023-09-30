@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
-import { AppBar } from "../layout/admin/AdminComponents";
+import { AppBar } from "../../layout/admin/AdminComponents";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
