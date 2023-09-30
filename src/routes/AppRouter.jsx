@@ -13,6 +13,7 @@ import Cookies from "js-cookie";
 import Create_User from "../pages/Admin/User/Page";
 import Page_Facultad from "../pages/Admin/Facultad/page";
 import Page_Carrera from "../pages/Admin/Carrera/Page";
+import Convocatoria from "../pages/Admin/Convocatoria/Page";
 export const AppRouter = () => {
   const authToken = Cookies.get("token");
   return (
@@ -30,6 +31,7 @@ export const AppRouter = () => {
         />
         <Route path="/admin/facultad" element={<Page_Facultad />} />
         <Route path="/admin/carrera" element={<Page_Carrera />} />
+        <Route path="/admin/convocatoria" element={<Convocatoria />} />
         <Route path="/admin" element={<HomeAdmin />} />
         <Route path="/admin/user" element={<Create_User />} />
       </Routes>

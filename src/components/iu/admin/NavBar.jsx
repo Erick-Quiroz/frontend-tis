@@ -117,6 +117,12 @@ const NavBar = ({ open, mode }) => {
         {subMenu2Open && (
           <List>
             <CustomListItem
+              to="/admin/convocatoria"
+              text="Convocatoria"
+              icon={<PeopleIcon />}
+              onClick={handleLinkClick}
+            />
+            <CustomListItem
               to="/admin/facultad"
               text="Facultad"
               icon={<DomainIcon />}
