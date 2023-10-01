@@ -34,7 +34,7 @@ const Form_User = ({ onClose, edit }) => {
       carrera: "",
     });
 
-    if (name === "cargo" && value === "Option1") {
+    if (name === "cargo" && value === "Estudiante") {
       setShowCarreraFacultad(true);
     } else {
       setShowCarreraFacultad(false);
@@ -48,9 +48,9 @@ const Form_User = ({ onClose, edit }) => {
       [name]: value,
     });
 
-    if (value === "Option1") {
+    if (value === "Facultad de veterinaria") {
       setCarreras(["Veterinaria "]);
-    } else if (value === "Option2") {
+    } else if (value === "Facultad de Ciencias y Tecnologia") {
       setCarreras([
         "Ing. Sistemas",
         "Ing. Electronica",
@@ -67,7 +67,27 @@ const Form_User = ({ onClose, edit }) => {
     e.preventDefault();
 
     try {
-      // Tu lógica de manejo de envío de datos aquí
+      const dataToSend = {
+        name: formData.name,
+        lastName: formData.lastName,
+        sis: formData.sis,
+        phone: formData.phone,
+        facultad: formData.facultad,
+        carrera: formData.carrera,
+        cargo: formData.cargo,
+      };
+
+      // Realiza una solicitud POST a la API
+      // const response = await axios.post("URL_DE_TU_API", dataToSend);
+
+      // Verifica la respuesta de la API
+      console.log(dataToSend);
+      if (response.status === 200) {
+        // La solicitud fue exitosa, puedes realizar acciones adicionales aquí
+        console.log("Datos enviados con éxito");
+      } else {
+        console.error("Error en la solicitud a la API");
+      }
 
       onClose();
     } catch (error) {
@@ -144,9 +164,9 @@ const Form_User = ({ onClose, edit }) => {
                   id: "cargo",
                 }}
               >
-                <MenuItem value="Option1">Estudiante</MenuItem>
-                <MenuItem value="Option2">Docente</MenuItem>
-                <MenuItem value="Option3">Otro</MenuItem>
+                <MenuItem value="Estudiante">Estudiante</MenuItem>
+                <MenuItem value="Docente">Docente</MenuItem>
+                <MenuItem value="Otro">Otro</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -178,8 +198,10 @@ const Form_User = ({ onClose, edit }) => {
                     id: "facultad",
                   }}
                 >
-                  <MenuItem value="Option1">Facultad de veterinaria</MenuItem>
-                  <MenuItem value="Option2">
+                  <MenuItem value="Facultad de veterinaria">
+                    Facultad de veterinaria
+                  </MenuItem>
+                  <MenuItem value="Facultad de Ciencias y Tecnologia">
                     Facultad de Ciencias y tecnologia
                   </MenuItem>
                 </Select>

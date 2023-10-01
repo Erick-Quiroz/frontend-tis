@@ -91,7 +91,13 @@ const NavBar = ({ open, mode }) => {
           onClick={handleLinkClick}
         />
         <Divider />
-
+        <CustomListItem
+          to="/admin/eleccion"
+          text="Eleccion"
+          icon={iconsList["Inicio"]}
+          onClick={handleLinkClick}
+        />
+        <Divider />
         <CustomListItem
           text="Asociacion"
           icon={subMenu1Open ? <ExpandLessIcon /> : <ExpandMoreIcon />} // Cambia el icono según el estado del submenú

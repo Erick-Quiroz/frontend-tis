@@ -14,6 +14,8 @@ import Create_User from "../pages/Admin/User/Page";
 import Page_Facultad from "../pages/Admin/Facultad/page";
 import Page_Carrera from "../pages/Admin/Carrera/Page";
 import Convocatoria from "../pages/Admin/Convocatoria/Page";
+import Page_Eleccion from "../pages/Admin/Eleccion/Page";
+import Create_Eleccion from "../pages/Admin/Eleccion/Sub/Create_Eleccion";
 export const AppRouter = () => {
   const authToken = Cookies.get("token");
   return (
@@ -24,7 +26,9 @@ export const AppRouter = () => {
           path="/login"
           element={authToken ? <Navigate to="/admin" /> : <Login />}
         />
+        <Route path="/admin/eleccion" element={<Page_Eleccion />} />
 
+        <Route path="/admin/eleccion/create" element={<Create_Eleccion />} />
         <Route
           path="/admin/Frente_Eleccion"
           element={<Frente_Candidatos_Eleccion />}
