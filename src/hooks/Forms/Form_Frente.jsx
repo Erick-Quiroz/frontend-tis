@@ -7,12 +7,13 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  TextField,
 } from "@mui/material";
 import { Grid } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { Box, Button } from "@mui/material";
 
-const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
+const Form_Frente = ({ onClose, edit, onNuevoClick }) => {
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -83,40 +84,22 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
 
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={12} lg={6}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                  <FormControl fullWidth variant="outlined">
-                    <InputLabel htmlFor="tipo_eleccion">
-                      Tipo eleccion
-                    </InputLabel>
-                    <Select
-                      required
-                      label="tipo_eleccion"
-                      name="tipo_eleccion"
-                      value={formData.tipo_eleccion}
-                      onChange={handleChange}
-                      inputProps={{
-                        name: "tipo_eleccion",
-                        id: "tipo_eleccion",
-                      }}
-                    >
-                      <MenuItem value="Option1">Rector</MenuItem>
-                      <MenuItem value="Option2">Decano</MenuItem>
-                      <MenuItem value="Option3">HCF</MenuItem>
-                      <MenuItem value="Option4">HCU</MenuItem>
-                    </Select>
-                  </FormControl>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ marginLeft: 1 }}
-                  >
-                    <AddIcon />
-                  </Button>
+                  <TextField
+                    required
+                    label="Nombre"
+                    variant="outlined"
+                    fullWidth
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    margin="dense"
+                  />
                 </Box>
               </Grid>
 
-              <Grid item xs={12} sm={12} md={12} lg={6}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <FormControl fullWidth variant="outlined">
                     <InputLabel htmlFor="facultad">Facultad</InputLabel>
@@ -150,7 +133,7 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
                 </Box>
               </Grid>
 
-              <Grid item xs={12} sm={12} md={12} lg={6}>
+              <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <FormControl fullWidth variant="outlined">
                     <InputLabel htmlFor="facultad">Carrera</InputLabel>
@@ -209,9 +192,9 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
   );
 };
 
-export default Form_Eleccion;
+export default Form_Frente;
 
-Form_Eleccion.propTypes = {
+Form_Frente.propTypes = {
   onClose: PropTypes.func.isRequired,
   edit: PropTypes.bool.isRequired,
   onNuevoClick: PropTypes.func.isRequired,

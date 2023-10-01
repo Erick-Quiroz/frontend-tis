@@ -82,12 +82,12 @@ const Form_User = ({ onClose, edit }) => {
 
       // Verifica la respuesta de la API
       console.log(dataToSend);
-      if (response.status === 200) {
-        // La solicitud fue exitosa, puedes realizar acciones adicionales aquí
-        console.log("Datos enviados con éxito");
-      } else {
-        console.error("Error en la solicitud a la API");
-      }
+      // if (response.status === 200) {
+      //   // La solicitud fue exitosa, puedes realizar acciones adicionales aquí
+      //   console.log("Datos enviados con éxito");
+      // } else {
+      //   console.error("Error en la solicitud a la API");
+      // }
 
       onClose();
     } catch (error) {

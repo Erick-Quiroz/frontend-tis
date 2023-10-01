@@ -2,9 +2,7 @@ import axios from "axios";
 
 export const getApi = async (route) => {
   try {
-    const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_PRODUCT}/${route}`
-    );
+    const response = await axios.get("https://pokeapi.co/api/v2/pokemon/ditto");
 
     return response.data;
   } catch (error) {
@@ -30,7 +28,7 @@ export const postProduct = async (route, formData) => {
     throw error;
   }
 };
-axios.defaults.withCredentials = true;
+
 export const postApi = async (route, jsonData) => {
   console.log(jsonData);
   try {
