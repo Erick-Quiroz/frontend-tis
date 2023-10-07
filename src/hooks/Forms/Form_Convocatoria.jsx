@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import html2canvas from 'html2canvas';
+import React , { useState, useRef } from 'react';
+//import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import PropTypes from 'prop-types';
 import {
@@ -31,7 +31,7 @@ const Form_Convocatoria = ({ onClose, edit }) => {
 
   const [carreras, setCarreras] = useState([]);
 
-  const formRef = useRef(null);
+  //const formRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
