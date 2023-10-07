@@ -9,7 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-export default function Table_User({ products }) {
+export default function Table_Conv({ convocatoria }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Sheet
@@ -69,12 +69,11 @@ export default function Table_User({ products }) {
             <tr>
               <th style={{ width: 30 }}>#</th>
               <th style={{ width: 200 }}>Nombre</th>
-              <th style={{ width: 150 }}>Apellido</th>
-              <th style={{ width: 150 }}>CodigoSIS</th>
-              <th style={{ width: 150 }}>Celular/Telefono</th>
-              <th style={{ width: 150 }}>Cargo</th>
+              <th style={{ width: 150 }}>Fecha Inicio</th>
+              <th style={{ width: 150 }}>Fecha Fin</th>
               <th style={{ width: 150 }}>Facultad</th>
               <th style={{ width: 150 }}>Carrera</th>
+              <th style={{ width: 150 }}>Tipo Eleccion</th>
               <th
                 aria-label="last"
                 style={{ width: 100, textAlign: "center" }} // Ajusta el ancho y el alineamiento
@@ -82,17 +81,15 @@ export default function Table_User({ products }) {
             </tr>
           </thead>
           <tbody>
-            {Object.values(products).map((row, index) => (
+            {Object.values(convocatoria).map((row, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{row.name}</td>
-                <td>{row.lastname}</td>
-                <td>{row.codsis}</td>
-                <td>{row.numberp}</td>
-                <td>{row.cargo}</td>
+                <td>{row.dateB}</td>
+                <td>{row.dateE}</td>
                 <td>{row.facultad}</td>
                 <td>{row.carrera}</td>
-
+                <td>{row.tipo}</td>
                 <td style={{ alignContent: "center", alignItems: "center" }}>
                   <Box
                     sx={{
@@ -126,6 +123,6 @@ export default function Table_User({ products }) {
     </Box>
   );
 }
-Table_User.propTypes = {
-  products: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+Table_Conv.propTypes = {
+  convocatoria: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };

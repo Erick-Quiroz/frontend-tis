@@ -195,7 +195,7 @@ const Form_Frente_Eleccion = ({
         });
         const savedProduct = await postProduct("product/upload", formData);
         console.log("Producto guardado:", savedProduct);
-      }
+      } 
 
       handleCloseDrawer();
       getProduct();

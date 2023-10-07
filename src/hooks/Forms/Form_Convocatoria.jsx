@@ -1,5 +1,7 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useRef } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+import PropTypes from 'prop-types';
 import {
   FormControl,
   TextField,
@@ -7,26 +9,29 @@ import {
   InputLabel,
   Select,
   MenuItem,
-} from "@mui/material";
+  Box,
+  Button,
+} from '@mui/material';
 
-import { Box, Button } from "@mui/material";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { LocalizationProvider } from "@mui/x-date-pickers-pro";
-import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers-pro';
+import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
+import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+import { postConv } from '../../api/api';
 
 const Form_Convocatoria = ({ onClose, edit }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    lastName: "",
-    sis: "",
-    phone: "",
-    facultad: "",
-    carrera: "",
-    cargo: "",
+    name: '',
+    dateB: '', // Inicializamos como cadena de fecha vacía
+    dateE: '', // Inicializamos como cadena de fecha vacía
+    facultad: '',
+    carrera: '',
+    tipo: '',
   });
 
   const [carreras, setCarreras] = useState([]);
+
+  const formRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,18 +48,73 @@ const Form_Convocatoria = ({ onClose, edit }) => {
       [name]: value,
     });
 
-    if (value === "Option1") {
-      setCarreras(["Veterinaria "]);
-    } else if (value === "Option2") {
+    if (value === 'Facultad de veterinaria') {
+      setCarreras(['Veterinaria']);
+    } else if (value === 'Facultad de Ciencias y Tecnologia') {
       setCarreras([
-        "Ing. Sistemas",
-        "Ing. Electronica",
-        "Ing. Eletrica",
-        "Ing. Civil",
-        "Ing. Industrial",
+        'Ing. Sistemas',
+        'Ing. Electronica',
+        'Ing. Electrica',
+        'Ing. Civil',
+        'Ing. Industrial',
       ]);
     } else {
       setCarreras([]);
+    }
+  };
+
+  const handleDateRangeChange = (newDateRange) => {
+    setFormData({
+      ...formData,
+      dateB: newDateRange[0], // Guardamos la cadena de fecha directamente
+      dateE: newDateRange[1], // Guardamos la cadena de fecha directamente
+    });
+  };
+
+  const handleGeneratePDF = () => {
+    try {
+      // Datos del formulario
+      const dataToSend = {
+        name: formData.name,
+        dateB: formData.dateB,
+        dateE: formData.dateE,
+        facultad: formData.facultad,
+        carrera: formData.carrera,
+        tipo: formData.tipo,
+      };
+  
+      // Formatear las fechas en el formato deseado
+      const formattedDateB = new Date(dataToSend.dateB).toDateString();
+      const formattedDateE = new Date(dataToSend.dateE).toDateString();
+  
+      // Crear un nuevo documento PDF con margen de 1.5 cm en todas las direcciones
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4',
+        top: 15, // Margen superior de 1.5 cm
+        right: 15, // Margen derecho de 1.5 cm
+        bottom: 15, // Margen inferior de 1.5 cm
+        left: 15, // Margen izquierdo de 1.5 cm
+      });
+  
+      // Texto predeterminado con marcadores de posición
+      const textoPredeterminado = `CONVOCATORIA
+  ELECCIONES DE "${dataToSend.tipo}" Y
+  ESTUDIANTES DE BASE AL HONORABLE CONSEJO
+  DE LA CARRERA DE "${dataToSend.carrera}" de la "${dataToSend.facultad}"
+  Los plazos de tiempos para inscripción de partidos y representantes serán de "${formattedDateB}" a "${formattedDateE}" sin nada más que decir, mis saludos cordiales.`;
+  
+      // Dividir el texto en líneas de acuerdo con el ancho de la página
+      const lines = pdf.splitTextToSize(textoPredeterminado, 180);
+  
+      // Agregar las líneas al PDF
+      pdf.text(lines, 15, 15);
+  
+      // Descargar el PDF
+      pdf.save('formulario.pdf');
+    } catch (error) {
+      console.error('Error al generar el PDF:', error);
     }
   };
 
@@ -63,19 +123,39 @@ const Form_Convocatoria = ({ onClose, edit }) => {
 
     try {
       // Tu lógica de manejo de envío de datos aquí
+      const dataToSend = {
+        name: formData.name,
+        dateB: formData.dateB,
+        dateE: formData.dateE,
+        facultad: formData.facultad,
+        carrera: formData.carrera,
+        tipo: formData.tipo,
+      };
+
+      // Envía los datos al servidor si es necesario
+      const jsonData = JSON.stringify(dataToSend);
+      const response = await postConv('http://localhost:8000/api/v1/registerconv', jsonData);
+
+      // Check the response status
+      if (response.status === 200) {
+        // The request was successful
+        console.log('Datos enviados con éxito');
+      } else {
+        console.error('Error en la solicitud a la API');
+      }
 
       onClose();
     } catch (error) {
-      console.error("Error sending data to API:", error);
+      console.error('Error sending data to API:', error);
     }
   };
 
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "80vh",
+        display: 'flex',
+        flexDirection: 'column',
+        height: '80vh',
       }}
     >
       <CssBaseline />
@@ -85,9 +165,9 @@ const Form_Convocatoria = ({ onClose, edit }) => {
           sx={{
             width: 320,
             flexGrow: 1,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between",
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
           }}
         >
           <Box sx={{ mt: 0 }}>
@@ -104,9 +184,10 @@ const Form_Convocatoria = ({ onClose, edit }) => {
           </Box>
           <Box>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DateRangePicker"]}>
+              <DemoContainer components={['DateRangePicker']}>
                 <DateRangePicker
-                  localeText={{ start: "Fecha inicio", end: "Fecha fin" }}
+                  localeText={{ start: 'Fecha inicio', end: 'Fecha fin' }}
+                  onChange={handleDateRangeChange}
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -122,12 +203,14 @@ const Form_Convocatoria = ({ onClose, edit }) => {
                 value={formData.facultad}
                 onChange={handleFacultadChange}
                 inputProps={{
-                  name: "facultad",
-                  id: "facultad",
+                  name: 'facultad',
+                  id: 'facultad',
                 }}
               >
-                <MenuItem value="Option1">Facultad de veterinaria</MenuItem>
-                <MenuItem value="Option2">
+                <MenuItem value="Facultad de veterinaria">
+                  Facultad de veterinaria
+                </MenuItem>
+                <MenuItem value="Facultad de Ciencias y Tecnologia">
                   Facultad de Ciencias y tecnologia
                 </MenuItem>
               </Select>
@@ -149,8 +232,8 @@ const Form_Convocatoria = ({ onClose, edit }) => {
                   });
                 }}
                 inputProps={{
-                  name: "carrera",
-                  id: "carrera",
+                  name: 'carrera',
+                  id: 'carrera',
                 }}
               >
                 {carreras.map((carrera, index) => (
@@ -163,24 +246,24 @@ const Form_Convocatoria = ({ onClose, edit }) => {
           </Box>
         </FormControl>
 
-        <Box sx={{ mt: 2, marginBottom: 2 }}>
+        <Box sx={{ mt: 2 }}>
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="tipo_eleccion">Tipo eleccion</InputLabel>
+            <InputLabel htmlFor="tipo_eleccion">Tipo de eleccion</InputLabel>
             <Select
               required
-              label="tipo_eleccion"
-              name="tipo_eleccion"
-              value={formData.tipo_eleccion}
+              label="tipo de eleccion"
+              name="tipo"
+              value={formData.tipo}
               onChange={handleChange}
               inputProps={{
-                name: "tipo_eleccion",
-                id: "tipo_eleccion",
+                name: 'tipo',
+                id: 'tipo',
               }}
             >
-              <MenuItem value="Option1">Rector</MenuItem>
-              <MenuItem value="Option2">Decano</MenuItem>
-              <MenuItem value="Option3">HCF</MenuItem>
-              <MenuItem value="Option4">HCU</MenuItem>
+              <MenuItem value="Rector">Rector</MenuItem>
+              <MenuItem value="Decano">Decano</MenuItem>
+              <MenuItem value="HCF">HCF</MenuItem>
+              <MenuItem value="HCU">HCU</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -189,17 +272,32 @@ const Form_Convocatoria = ({ onClose, edit }) => {
           <Button
             type="submit"
             sx={{
-              width: "100%",
-              borderRadius: "55px",
-              boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.9)",
+              width: '100%',
+              borderRadius: '55px',
+              boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.9)',
             }}
             variant="solid"
             color="primary"
           >
-            {edit ? "Editar Convocatoria" : "Crear Convocatoria"}
+            {edit ? 'Editar Convocatoria' : 'Crear Convocatoria'}
           </Button>
         </Box>
       </form>
+
+      {/* Botón para generar el PDF */}
+      <Button
+        onClick={handleGeneratePDF}
+        sx={{
+          width: '100%',
+          borderRadius: '55px',
+          boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.9)',
+          marginTop: '16px',
+        }}
+        variant="solid"
+        color="primary"
+      >
+        Generar PDF
+      </Button>
     </Box>
   );
 };

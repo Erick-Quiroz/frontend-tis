@@ -3,7 +3,20 @@ import axios from "axios";
 export const getApi = async (route) => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_PRODUCT}/${route}`
+      `http://localhost:8000/api/v1/userts`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+};
+
+export const getApiConv = async (route) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/v1/convocatoria`
     );
 
     return response.data;
@@ -16,11 +29,11 @@ export const getApi = async (route) => {
 export const postProduct = async (route, formData) => {
   try {
     const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_PRODUCT}/${route}`,
-      formData,
+      `http://localhost:8000/api/v1/registerusert`,
+      formData, // JSON data
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json", // Set the content type to JSON
         },
       }
     );
@@ -30,7 +43,26 @@ export const postProduct = async (route, formData) => {
     throw error;
   }
 };
-axios.defaults.withCredentials = true;
+
+export const postConv = async (route, formData) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8000/api/v1/registerconv`,
+      formData, // JSON data
+      {
+        headers: {
+          "Content-Type": "application/json", // Set the content type to JSON
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error al guardar el producto:", error);
+    throw error;
+  }
+};
+
+
 export const postApi = async (route, jsonData) => {
   console.log(jsonData);
   try {
