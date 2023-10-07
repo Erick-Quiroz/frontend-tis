@@ -99,7 +99,7 @@ const NavBar = ({ open, mode }) => {
         />
         <Divider />
         <CustomListItem
-          text="Asociacion"
+          text="Asignacion"
           icon={subMenu1Open ? <ExpandLessIcon /> : <ExpandMoreIcon />} // Cambia el icono según el estado del submenú
           onClick={handleSubMenu1Click}
         />
@@ -107,7 +107,7 @@ const NavBar = ({ open, mode }) => {
           <List>
             <CustomListItem
               to="/Admin/Frente_Eleccion"
-              text="Frente Eleccion"
+              text="Cargo"
               icon={<LocalMallIcon />}
               onClick={handleLinkClick}
             />
@@ -116,7 +116,7 @@ const NavBar = ({ open, mode }) => {
         <Divider />
 
         <CustomListItem
-          text="Registro"
+          text="Registros"
           icon={subMenu2Open ? <ExpandLessIcon /> : <ExpandMoreIcon />} // Cambia el icono según el estado del submenú
           onClick={handleSubMenu2Click}
         />
@@ -149,6 +149,12 @@ const NavBar = ({ open, mode }) => {
             <CustomListItem
               to="/admin/frente"
               text="Frente"
+              icon={<PeopleIcon />}
+              onClick={handleLinkClick}
+            />
+            <CustomListItem
+              to="/admin/cargo"
+              text="Cargo"
               icon={<PeopleIcon />}
               onClick={handleLinkClick}
             />
