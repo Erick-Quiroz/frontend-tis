@@ -2,16 +2,19 @@ import { useState, useEffect } from "react";
 import { Admin } from "../../../components/layout/admin/Admin";
 import { Grid, Typography } from "@mui/material";
 import { containerChartStyles } from "../Home/utils/HomeStyles";
-import TableProducts from "../../../hooks/Table/Table_Frente_Eleccion";
+import Table_User from "../../../hooks/Table/Table_User";
 import ButtonProducts from "../../../hooks/utils/Button";
 
 import Drawer from "../../../hooks/Drawer/Drawer";
-import { getApi } from "../../../api/api";
-import Form_Frente_Eleccion from "../../../hooks/Forms/Form_Frente_Eleccion";
-import Form_Asociar_C_F_E from "../../../hooks/Forms/Form_Asociar_C_F_E";
+// import { getApi } from "../../../api/api";
 
-const Page_Asociacion = () => {
-  const name = "Asociacion Frente Eleccion";
+import Form_Frente from "../../../hooks/Forms/Form_Frente";
+import Form_Eleccion from "../../../hooks/Forms/Form_Eleccion";
+import Form_Jurado from "../../../hooks/Forms/Form_Jurado";
+
+const Page_Jurado = () => {
+  const name = "Jurado";
+
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [product, setProduct] = useState({});
   const [edit, setedit] = useState(false);
@@ -39,9 +42,9 @@ const Page_Asociacion = () => {
   };
   async function getProduct() {
     try {
-      const productsData = await getApi("asociaciones");
-      setProduct(productsData);
-      console.log(productsData);
+      // const productsData = await getApi("product");
+      // setProduct(productsData);
+      // console.log(productsData);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -61,7 +64,7 @@ const Page_Asociacion = () => {
                 variant="h4"
                 sx={{ borderBottom: "2px solid black", width: "100%" }}
               >
-                Frente con candidatos y elecciones
+                {name}
               </Typography>
 
               <ButtonProducts
@@ -76,7 +79,7 @@ const Page_Asociacion = () => {
         <Grid item xs={12} md={12} lg={12}>
           <Grid container style={containerChartStyles}>
             <Grid item xs={12}>
-              <TableProducts
+              <Table_User
                 products={product}
                 handleEdit={handleEdit}
                 openDrawer={openDrawer}
@@ -96,7 +99,7 @@ const Page_Asociacion = () => {
           getProduct={getProduct}
           name={name}
           form={
-            <Form_Asociar_C_F_E
+            <Form_Jurado
               onClose={closeDrawer}
               selectedProduct={selectedProduct}
               edit={edit}
@@ -109,4 +112,4 @@ const Page_Asociacion = () => {
   );
 };
 
-export default Page_Asociacion;
+export default Page_Jurado;

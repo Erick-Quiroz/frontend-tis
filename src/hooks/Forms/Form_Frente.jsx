@@ -22,11 +22,15 @@ const Form_Frente = ({ onClose, edit, onNuevoClick }) => {
     facultad: "",
     carrera: "",
     cargo: "",
+    jurados: [], // Agregamos un campo para los jurados seleccionados
   });
+
+  const [carreras, setCarreras] = useState([]);
+  const [selectedJurados, setSelectedJurados] = useState(new Set()); // Mantenemos un conjunto de jurados seleccionados
+
   const handleNuevoClick = (itemName) => {
     onNuevoClick(itemName);
   };
-  const [carreras, setCarreras] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +60,22 @@ const Form_Frente = ({ onClose, edit, onNuevoClick }) => {
     } else {
       setCarreras([]);
     }
+  };
+
+  const handleJuradoSelect = (jurado) => {
+    setSelectedJurados((prevSelected) => {
+      const newSelected = new Set(prevSelected);
+      newSelected.add(jurado);
+      return newSelected;
+    });
+  };
+
+  const handleJuradoDeselect = (jurado) => {
+    setSelectedJurados((prevSelected) => {
+      const newSelected = new Set(prevSelected);
+      newSelected.delete(jurado);
+      return newSelected;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -136,7 +156,7 @@ const Form_Frente = ({ onClose, edit, onNuevoClick }) => {
               <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <FormControl fullWidth variant="outlined">
-                    <InputLabel htmlFor="facultad">Carrera</InputLabel>
+                    <InputLabel htmlFor="carrera">Carrera</InputLabel>
                     <Select
                       required
                       label="Carrera"
@@ -170,7 +190,61 @@ const Form_Frente = ({ onClose, edit, onNuevoClick }) => {
                   </Button>
                 </Box>
               </Grid>
+
+              <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <FormControl fullWidth variant="outlined">
+                    <InputLabel htmlFor="jurados">Jurados</InputLabel>
+                    <Select
+                      required
+                      label="Jurados"
+                      name="jurados"
+                      value={formData.jurados}
+                      onChange={(e) => {
+                        setFormData({
+                          ...formData,
+                          jurados: e.target.value,
+                        });
+                      }}
+                      inputProps={{
+                        name: "jurados",
+                        id: "jurados",
+                      }}
+                      multiple // Esto permite la selección múltiple
+                    >
+                      {juradosDisponibles.map((jurado, index) => (
+                        <MenuItem
+                          key={index}
+                          value={jurado}
+                          onClick={() => {
+                            if (selectedJurados.has(jurado)) {
+                              handleJuradoDeselect(jurado);
+                            } else {
+                              handleJuradoSelect(jurado);
+                            }
+                          }}
+                        >
+                          {jurado}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    sx={{ marginLeft: 1 }}
+                    onClick={() => handleNuevoClick("jurados")}
+                  >
+                    <AddIcon />
+                  </Button>
+                </Box>
+              </Grid>
             </Grid>
+
+            {/* Muestra los jurados seleccionados */}
+            {Array.from(selectedJurados).map((jurado, index) => (
+              <span key={index}>{jurado}</span>
+            ))}
 
             <Button
               type="submit"

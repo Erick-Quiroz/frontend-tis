@@ -68,11 +68,10 @@ export default function TableProducts({ products }) {
           <thead>
             <tr>
               <th style={{ width: 30 }}>#</th>
-              <th style={{ width: 200 }}>Nombre</th>
-              <th style={{ width: 150 }}>Precio</th>
-              <th style={{ width: 150 }}>Cantidad</th>
-              <th style={{ width: 150 }}>Year</th>
-              <th style={{ width: 150 }}>Imagen</th>
+              <th style={{ width: 200 }}>Eleccion</th>
+              <th style={{ width: 150 }}>Candidato</th>
+              <th style={{ width: 150 }}>Frente</th>
+
               <th
                 aria-label="last"
                 style={{ width: 100, textAlign: "center" }} // Ajusta el ancho y el alineamiento
@@ -83,19 +82,10 @@ export default function TableProducts({ products }) {
             {Object.values(products).map((row, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>
-                  {row.image && (
-                    <img
-                      src={row.image.secure_url}
-                      alt={row.name}
-                      style={{ maxWidth: "50px", maxHeight: "50px" }}
-                    />
-                  )}
-                </td>
-                <td>{row.name}</td>
-                <td>{row.price}</td>
-                <td>{row.quantity}</td>
-                <td>{row.year}</td>
+
+                <td>{row.eleccion_id}</td>
+                <td>{row.candidato_id}</td>
+                <td>{row.frente_id}</td>
 
                 <td style={{ alignContent: "center", alignItems: "center" }}>
                   <Box

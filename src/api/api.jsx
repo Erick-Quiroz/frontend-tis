@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getApi = async (route) => {
   try {
-    const response = await axios.get("https://pokeapi.co/api/v2/pokemon/ditto");
+    const response = await axios.get(`http://127.0.0.1:8000/api/v1/${route}`);
 
     return response.data;
   } catch (error) {
@@ -14,11 +14,11 @@ export const getApi = async (route) => {
 export const postProduct = async (route, formData) => {
   try {
     const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_PRODUCT}/${route}`,
+      `http://127.0.0.1:8000/api/v1/${route}`,
       formData,
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
       }
     );
