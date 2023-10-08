@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { Admin } from "../../../components/layout/admin/Admin";
 import { Grid, Typography } from "@mui/material";
 import { containerChartStyles } from "../Home/utils/HomeStyles";
+import Table_Conv from "../../../hooks/Table/Table_Conv";
 import Table_User from "../../../hooks/Table/Table_User";
 import ButtonProducts from "../../../hooks/utils/Button";
 
 import Drawer from "../../../hooks/Drawer/Drawer";
-import { getApi } from "../../../api/api";
+import { getApiConv } from "../../../api/api";
 import Form_User from "../../../hooks/Forms/Form_Convocatoria";
 
 const Convocatoria = () => {
   const name = "Convocatoria";
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [product, setProduct] = useState({});
+  const [convocatoria, setProduct] = useState({});
   const [edit, setedit] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   useEffect(() => {
@@ -39,15 +40,15 @@ const Convocatoria = () => {
   };
   async function getProduct() {
     try {
-      const productsData = await getApi("product");
+      const productsData = await getApiConv("product");
       setProduct(productsData);
       console.log(productsData);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   }
-  const handleEdit = (product) => {
-    setSelectedProduct(product);
+  const handleEdit = (convocatoria) => {
+    setSelectedProduct(convocatoria);
   };
 
   return (
@@ -76,8 +77,8 @@ const Convocatoria = () => {
         <Grid item xs={12} md={12} lg={12}>
           <Grid container style={containerChartStyles}>
             <Grid item xs={12}>
-              <Table_User
-                products={product}
+              <Table_Conv
+                convocatoria={convocatoria}
                 handleEdit={handleEdit}
                 openDrawer={openDrawer}
                 editTrue={editTrue}

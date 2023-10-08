@@ -11,6 +11,19 @@ export const getApi = async (route) => {
   }
 };
 
+export const getApiConv = async (route) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:8000/api/v1/convocatoria`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    throw error;
+  }
+};
+
 export const postProduct = async (route, formData) => {
   try {
     const response = await axios.post(
@@ -19,6 +32,24 @@ export const postProduct = async (route, formData) => {
       {
         headers: {
           "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error al guardar el producto:", error);
+    throw error;
+  }
+};
+
+export const postConv = async (route, formData) => {
+  try {
+    const response = await axios.post(
+      `http://localhost:8000/api/v1/registerconv`,
+      formData, // JSON data
+      {
+        headers: {
+          "Content-Type": "application/json", // Set the content type to JSON
         },
       }
     );

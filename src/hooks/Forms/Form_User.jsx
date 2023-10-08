@@ -10,13 +10,15 @@ import {
 } from "@mui/material";
 
 import { Box, Button } from "@mui/material";
+import axios from "axios";
+import { postProduct } from "../../api/api";
 
 const Form_User = ({ onClose, edit }) => {
   const [formData, setFormData] = useState({
     name: "",
-    lastName: "",
-    sis: "",
-    phone: "",
+    lastname: "",
+    codsis: "",
+    numberp: "",
     facultad: "",
     carrera: "",
     cargo: "",
@@ -65,30 +67,35 @@ const Form_User = ({ onClose, edit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const dataToSend = {
         name: formData.name,
-        lastName: formData.lastName,
-        sis: formData.sis,
-        phone: formData.phone,
+        lastname: formData.lastname,
+        codsis: formData.codsis,
+        cargo: formData.cargo,
+        numberp: formData.numberp,
         facultad: formData.facultad,
         carrera: formData.carrera,
-        cargo: formData.cargo,
       };
-
-      // Realiza una solicitud POST a la API
-      // const response = await axios.post("URL_DE_TU_API", dataToSend);
-
-      // Verifica la respuesta de la API
-      console.log(dataToSend);
-      // if (response.status === 200) {
-      //   // La solicitud fue exitosa, puedes realizar acciones adicionales aquí
-      //   console.log("Datos enviados con éxito");
-      // } else {
-      //   console.error("Error en la solicitud a la API");
-      // }
-
+  
+      // Convert the dataToSend object to a JSON string
+      const jsonData = JSON.stringify(dataToSend);
+  
+      // Send a POST request with JSON data
+      const response = await postProduct("http://localhost:8000/api/v1/registerusert",dataToSend 
+        //method: "POST",
+        
+      );
+  
+      // Check the response status
+      if (response.status === 200) {
+        // The request was successful
+        console.log("Datos enviados con éxito");
+      } else {
+        console.error("Error en la solicitud a la API");
+      }
+  
       onClose();
     } catch (error) {
       console.error("Error sending data to API:", error);
@@ -133,8 +140,8 @@ const Form_User = ({ onClose, edit }) => {
               label="Apellidos"
               variant="outlined"
               fullWidth
-              name="lastName"
-              value={formData.lastName}
+              name="lastname"
+              value={formData.lastname}
               onChange={handleChange}
               margin="dense"
             />
@@ -145,8 +152,8 @@ const Form_User = ({ onClose, edit }) => {
               label="Codigo Sis"
               variant="outlined"
               fullWidth
-              name="sis"
-              value={formData.sis}
+              name="codsis"
+              value={formData.codsis}
               onChange={handleChange}
             />
           </Box>
@@ -177,8 +184,8 @@ const Form_User = ({ onClose, edit }) => {
               variant="outlined"
               fullWidth
               type="number"
-              name="phone"
-              value={formData.phone}
+              name="numberp"
+              value={formData.numberp}
               onChange={handleChange}
             />
           </Box>

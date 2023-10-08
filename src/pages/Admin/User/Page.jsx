@@ -39,7 +39,7 @@ const Create_User = () => {
   };
   async function getProduct() {
     try {
-      const productsData = await getApi("product");
+      const productsData = await getApi("userts");
       setProduct(productsData);
       console.log(productsData);
     } catch (error) {
