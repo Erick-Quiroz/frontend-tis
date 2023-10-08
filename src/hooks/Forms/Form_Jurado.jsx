@@ -348,7 +348,7 @@ const Form_Jurado = ({ onClose, edit, onNuevoClick }) => {
 
     try {
       
-      const response = await axios.post("/tu/ruta/en/el/backend", {
+      const response = await axios.post("user", {
         id_mesa: mesaId,
         id_usuario: jurado.id, 
       });
