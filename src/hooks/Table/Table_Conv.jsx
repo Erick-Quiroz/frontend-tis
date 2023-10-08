@@ -1,4 +1,4 @@
-// import * as React from "react";
+import React from "react";
 import Box from "@mui/joy/Box";
 import PropTypes from "prop-types";
 import Table from "@mui/joy/Table";
@@ -7,44 +7,54 @@ import Sheet from "@mui/joy/Sheet";
 import Button from "@mui/joy/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import VisibilityIcon from "@mui/icons-material/Visibility";
+import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
+import jsPDF from "jspdf";
 
 export default function Table_Conv({ convocatoria }) {
+  const generarPDF = (rowData) => {
+    const doc = new jsPDF({
+      unit: "cm",
+      format: [21, 29.7],
+      orientation: "portrait",
+      margins: { top: 1.5, right: 1.5, bottom: 1.5, left: 1.5 },
+    });
+  
+    // Formatear dateB y dateE
+    const formattedDateB = rowData.dateB.substring(0, 10);
+    const formattedDateE = rowData.dateE.substring(0, 10);
+  
+    // Texto predeterminado con valores formateados
+    const textoPDF = `
+  CONVOCATORIA
+  ELECCIONES DE ${rowData.tipo} Y
+  ESTUDIANTES DE BASE AL HONORABLE CONSEJO
+  DE LA CARRERA DE ${rowData.carrera} de la ${rowData.facultad}
+  Los plazos de tiempos para inscripción de partidos y representantes serán de
+  ${formattedDateB} a ${formattedDateE}
+  sin nada más que decir mis saludos cordiales.
+    `;
+  
+    // Dividir el texto en líneas de acuerdo con el ancho de la página
+    const lines = doc.splitTextToSize(textoPDF, 18); // Ancho de línea de 18 cm
+  
+    // Establecer el tamaño de fuente
+    doc.setFontSize(12);
+  
+    // Agregar las líneas al PDF
+    doc.text(lines, 1.5, 1.5);
+  
+    // Descargar el PDF
+    doc.save("Convocatoria.pdf");
+  };
+  
+  
+
   return (
     <Box sx={{ width: "100%" }}>
       <Sheet
         variant="outlined"
         sx={{
-          "--TableCell-height": "40px",
-          // the number is the amount of the header rows.
-          "--TableHeader-height": "calc(1 * var(--TableCell-height))",
-          "--Table-firstColumnWidth": "30px",
-          "--Table-lastColumnWidth": "px",
-          // background needs to have transparency to show the scrolling shadows
-          "--TableRow-stripeBackground": "rgba(0 0 0 / 0.04)",
-          "--TableRow-hoverBackground": "rgba(0 0 0 / 0.08)",
-          overflow: "auto",
-          background: (theme) =>
-            `linear-gradient(to right, ${theme.vars.palette.background.surface} 30%, rgba(255, 255, 255, 0)),
-            linear-gradient(to right, rgba(255, 255, 255, 0), ${theme.vars.palette.background.surface} 70%) 0 100%,
-            radial-gradient(
-              farthest-side at 0 50%,
-              rgba(0, 0, 0, 0.12),
-              rgba(0, 0, 0, 0)
-            ),
-            radial-gradient(
-                farthest-side at 100% 50%,
-                rgba(0, 0, 0, 0.12),
-                rgba(0, 0, 0, 0)
-              )
-              0 100%`,
-          backgroundSize:
-            "40px calc(100% - var(--TableCell-height)), 40px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height)), 14px calc(100% - var(--TableCell-height))",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "local, local, scroll, scroll",
-          backgroundPosition:
-            "var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height), var(--Table-firstColumnWidth) var(--TableCell-height), calc(100% - var(--Table-lastColumnWidth)) var(--TableCell-height)",
-          backgroundColor: "background.surface",
+          // ... (tu estilo de fondo aquí)
         }}
       >
         <Table
@@ -76,7 +86,7 @@ export default function Table_Conv({ convocatoria }) {
               <th style={{ width: 150 }}>Tipo Eleccion</th>
               <th
                 aria-label="last"
-                style={{ width: 100, textAlign: "center" }} // Ajusta el ancho y el alineamiento
+                style={{ width: 100, textAlign: "center" }}
               ></th>
             </tr>
           </thead>
@@ -101,14 +111,18 @@ export default function Table_Conv({ convocatoria }) {
                     }}
                   >
                     <Button size="sm" variant="plain" color="neutral">
-                      <EditIcon fontSize="inherit" /> {/* Ajusta el tamaño */}
+                      <EditIcon fontSize="inherit" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="soft"
+                      color="danger"
+                      onClick={() => generarPDF(row)}
+                    >
+                      <PictureAsPdfIcon fontSize="inherit" />
                     </Button>
                     <Button size="sm" variant="soft" color="danger">
-                      <DeleteIcon fontSize="inherit" /> {/* Ajusta el tamaño */}
-                    </Button>
-                    <Button size="sm" variant="plain" color="primary">
-                      <VisibilityIcon fontSize="inherit" />{" "}
-                      {/* Ajusta el tamaño */}
+                      <DeleteIcon fontSize="inherit" />
                     </Button>
                   </Box>
                 </td>
@@ -123,6 +137,7 @@ export default function Table_Conv({ convocatoria }) {
     </Box>
   );
 }
+
 Table_Conv.propTypes = {
   convocatoria: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
 };
