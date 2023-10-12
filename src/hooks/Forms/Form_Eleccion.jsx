@@ -22,318 +22,50 @@ import {
   Collapse,
 } from "@mui/material";
 
-const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
+const Form_Eleccion = ({ edit, function_add }) => {
   const [mesas, setMesas] = useState([]);
   const [cantidadMesas, setCantidadMesas] = useState(1);
   const [formData, setFormData] = useState({
-    mesas: "",
-    jurado: "",
+    facultad: "",
+    carrera: "",
   });
 
   const docentes = [
-    {
-      id: "1",
-      nombre: "Erick1",
-      cargo: "Docente",
-    },
-    {
-      id: "2",
-      nombre: "Erick2",
-      cargo: "Docente",
-    },
-    {
-      id: "3",
-      nombre: "Erick3",
-      cargo: "Docente",
-    },
-    {
-      id: "4",
-      nombre: "Erick4",
-      cargo: "Docente",
-    },
-    {
-      id: "5",
-      nombre: "Erick5",
-      cargo: "Docente",
-    },
-    {
-      id: "6",
-      nombre: "Erick6",
-      cargo: "Docente",
-    },
-    {
-      id: "7",
-      nombre: "Erick7",
-      cargo: "Docente",
-    },
-    {
-      id: "8",
-      nombre: "Erick8",
-      cargo: "Docente",
-    },
-    {
-      id: "9",
-      nombre: "Erick9",
-      cargo: "Docente",
-    },
-    {
-      id: "10",
-      nombre: "Erick10",
-      cargo: "Docente",
-    },
-    {
-      id: "11",
-      nombre: "Erick11",
-      cargo: "Docente",
-    },
-    {
-      id: "12",
-      nombre: "Erick12",
-      cargo: "Docente",
-    },
-    {
-      id: "13",
-      nombre: "Erick13",
-      cargo: "Docente",
-    },
-    {
-      id: "14",
-      nombre: "Erick14",
-      cargo: "Docente",
-    },
-    {
-      id: "15",
-      nombre: "Erick15",
-      cargo: "Docente",
-    },
-    {
-      id: "16",
-      nombre: "Erick16",
-      cargo: "Docente",
-    },
-    {
-      id: "17",
-      nombre: "Erick17",
-      cargo: "Docente",
-    },
-    {
-      id: "18",
-      nombre: "Erick18",
-      cargo: "Docente",
-    },
-    {
-      id: "19",
-      nombre: "Erick19",
-      cargo: "Docente",
-    },
-    {
-      id: "20",
-      nombre: "Erick20",
-      cargo: "Docente",
-    },
-    {
-      id: "21",
-      nombre: "Erick21",
-      cargo: "Docente",
-    },
-    {
-      id: "22",
-      nombre: "Erick22",
-      cargo: "Docente",
-    },
-    {
-      id: "23",
-      nombre: "Erick23",
-      cargo: "Docente",
-    },
-    {
-      id: "24",
-      nombre: "Erick24",
-      cargo: "Docente",
-    },
-    {
-      id: "25",
-      nombre: "Erick25",
-      cargo: "Docente",
-    },
-    {
-      id: "26",
-      nombre: "Erick26",
-      cargo: "Docente",
-    },
-    {
-      id: "27",
-      nombre: "Erick27",
-      cargo: "Docente",
-    },
-    {
-      id: "28",
-      nombre: "Erick28",
-      cargo: "Docente",
-    },
-    {
-      id: "29",
-      nombre: "Erick29",
-      cargo: "Docente",
-    },
-    {
-      id: "30",
-      nombre: "Erick30",
-      cargo: "Docente",
-    },
+    {id: "1", nombre: "JUAN ANTONIO", cargo: "RODRIGUEZ SEJAS",},
+    {id: "2", nombre: "MARLENE", cargo: "UGARTE GALARZA",},
+    {id: "3", nombre: "JOSE ROBERTO", cargo: "OMONTE OJALVO",},
+    {id: "4", nombre: "DAVID ALFREDO", cargo: "DELGADILLO COSSIO",},
+    {id: "5", nombre: "RAMIRO", cargo: "ROJAS ZURITA",},
+    {id: "6", nombre: "LUCIO", cargo: "GONZALES CARTAGENA",},
+    {id: "7", nombre: "MARIEL ANGELES", cargo: "MENDEZ LOZA",},
+    {id: "8", nombre: "JULIO", cargo: "MEDINA GAMBOA",},
+    {id: "9", nombre: "JULIO", cargo: "AMEDINA GAMBOA",},
+    {id: "10", nombre: "GUALBERTO", cargo: "CLEON ROMERO",},
+    {id: "11", nombre: "JUAN PABLO", cargo: "PENALOZA PACHECO",},
+    {id: "12", nombre: "GUALBERTO", cargo: "LEON ROMERO",},
+    {id: "13", nombre: "RONALD EDGAR", cargo: "PATINO TITO",},
+    {id: "14", nombre: "BTICLLA MAMANI IVAN", cargo: "Docente",},
+    {id: "15", nombre: "FIDEL", cargo: "TABORGA ACHA",},
+    {id: "16", nombre: "MARIA BETHY", cargo: "LOVERA MAMANI",},
   ];
 
   const estudiantes = [
-    {
-      id: "1",
-      nombre: "Alejandro1",
-      cargo: "Estudiante",
-    },
-    {
-      id: "2",
-      nombre: "Alejandro2",
-      cargo: "Estudiante",
-    },
-    {
-      id: "3",
-      nombre: "Alejandro3",
-      cargo: "Estudiante",
-    },
-    {
-      id: "4",
-      nombre: "Alejandro4",
-      cargo: "Estudiante",
-    },
-    {
-      id: "5",
-      nombre: "Aleatorio1",
-      cargo: "Estudiante",
-    },
-    {
-      id: "6",
-      nombre: "Aleatorio2",
-      cargo: "Estudiante",
-    },
-    {
-      id: "7",
-      nombre: "Aleatorio3",
-      cargo: "Estudiante",
-    },
-    {
-      id: "8",
-      nombre: "Aleatorio4",
-      cargo: "Estudiante",
-    },
-    {
-      id: "9",
-      nombre: "Aleatorio5",
-      cargo: "Estudiante",
-    },
-    {
-      id: "10",
-      nombre: "Aleatorio6",
-      cargo: "Estudiante",
-    },
-    {
-      id: "11",
-      nombre: "Aleatorio7",
-      cargo: "Estudiante",
-    },
-    {
-      id: "12",
-      nombre: "Aleatorio8",
-      cargo: "Estudiante",
-    },
-    {
-      id: "13",
-      nombre: "Aleatorio9",
-      cargo: "Estudiante",
-    },
-    {
-      id: "14",
-      nombre: "Aleatorio10",
-      cargo: "Estudiante",
-    },
-    {
-      id: "15",
-      nombre: "Aleatorio11",
-      cargo: "Estudiante",
-    },
-    {
-      id: "16",
-      nombre: "Aleatorio12",
-      cargo: "Estudiante",
-    },
-    {
-      id: "17",
-      nombre: "Aleatorio13",
-      cargo: "Estudiante",
-    },
-    {
-      id: "18",
-      nombre: "Aleatorio14",
-      cargo: "Estudiante",
-    },
-    {
-      id: "19",
-      nombre: "Aleatorio15",
-      cargo: "Estudiante",
-    },
-    {
-      id: "20",
-      nombre: "Aleatorio16",
-      cargo: "Estudiante",
-    },
-    {
-      id: "21",
-      nombre: "Aleatorio17",
-      cargo: "Estudiante",
-    },
-    {
-      id: "22",
-      nombre: "Aleatorio18",
-      cargo: "Estudiante",
-    },
-    {
-      id: "23",
-      nombre: "Aleatorio19",
-      cargo: "Estudiante",
-    },
-    {
-      id: "24",
-      nombre: "Aleatorio20",
-      cargo: "Estudiante",
-    },
-    {
-      id: "25",
-      nombre: "Aleatorio21",
-      cargo: "Estudiante",
-    },
-    {
-      id: "26",
-      nombre: "Aleatorio22",
-      cargo: "Estudiante",
-    },
-    {
-      id: "27",
-      nombre: "Aleatorio23",
-      cargo: "Estudiante",
-    },
-    {
-      id: "28",
-      nombre: "Aleatorio24",
-      cargo: "Estudiante",
-    },
-    {
-      id: "29",
-      nombre: "Aleatorio25",
-      cargo: "Estudiante",
-    },
-    {
-      id: "30",
-      nombre: "Aleatorio26",
-      cargo: "Estudiante",
-    },
+    { id: "1", nombre: "LEON ROMERO GUALBERTO", cargo: "Estudiante",},
+    { id: "2", nombre: "JUAN ANTONIO", cargo: "FRODRIGUEZ SEJAS",},
+    { id: "3", nombre: "MICHAEL HUASCAR", cargo: "VASQUEZ CARRILLO",},
+    { id: "4", nombre: "JORGE", cargo: "DAVALOS BROZOVIC",},
+    { id: "5", nombre: "ROCIO", cargo: "GUZMAN SAAVEDRA",},
+    { id: "6", nombre: "MICHAEL HUASCAR", cargo: "VASQUEZ CARRILLO",},
+    { id: "7", nombre: "MIGUEL ANGEL", cargo: "ORDONEZ SALVATIERRA",},
+    { id: "8", nombre: "RENE", cargo: "MOREIRA CALIZAYA",},
+    { id: "9", nombre: "ROCIO", cargo: "GUZMAN SAAVEDRA",},
+    { id: "10", nombre: "JUAN CARLOS", cargo: "TERRAZAS VARGAS",},
+    { id: "11", nombre: "FELIX", cargo: "UGARTE CEJAS",},
+    { id: "12", nombre: "IVAN", cargo: "FUENTES MIRANDA",},
+    { id: "13", nombre: "CECILIA BEATRIZ", cargo: "CASTRO LAZARTE",},
+    { id: "14", nombre: "RENE", cargo: "OREIRA CALIZAYA",},
+    { id: "15", nombre: "JUAN CARLOS", cargo: "TERRAZAS VARGAS",},
+    { id: "16", nombre: "GALINA", cargo: "SHITIKOV GAGARINA",},
   ];
 
   const handleCreateMesas = () => {
@@ -368,6 +100,13 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
     asignarJurados(nuevasMesas);
   };
 
+  function obtenerNombresJurados(list_mesas){
+    const nombresJurados = list_mesas.flatMap((mesa) =>
+      mesa.jurado.map((jurado) => `${jurado.nombre} ${jurado.cargo}`)
+    );
+    return(nombresJurados);
+  }
+
   const asignarJurados = (nuevasMesas) => {
     const docentesCopy = [...docentes];
     const estudiantesCopy = [...estudiantes];
@@ -376,15 +115,15 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
       const juradosMesa = [];
 
       for (let i = 0; i < 2; i++) {
-        const randomIndex = Math.floor(Math.random() * docentesCopy.length);
-        const docente = docentesCopy.splice(randomIndex, 1)[0];
-        juradosMesa.push(docente);
-      }
-
-      for (let i = 0; i < 2; i++) {
-        const randomIndex = Math.floor(Math.random() * estudiantesCopy.length);
-        const estudiante = estudiantesCopy.splice(randomIndex, 1)[0];
-        juradosMesa.push(estudiante);
+        if(i < 1){
+          const randomIndex = Math.floor(Math.random() * docentesCopy.length);
+          const docente = docentesCopy.splice(randomIndex, 1)[0];
+          juradosMesa.push(docente);
+        }else{
+          const randomIndex = Math.floor(Math.random() * estudiantesCopy.length);
+          const estudiante = estudiantesCopy.splice(randomIndex, 1)[0];
+          juradosMesa.push(estudiante);
+        }
       }
 
       return {
@@ -392,12 +131,41 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
         jurado: juradosMesa,
       };
     });
-
     setMesas(mesasConJurados);
+    console.log('Mesas jurado => ', mesasConJurados, 'Jurados => ', obtenerNombresJurados(mesasConJurados));
+    console.log('Datos de formData => ', formData);
+    const nombresjurados = obtenerNombresJurados(mesasConJurados);
+    console.log(nombresjurados);
+    function_add(formData, nombresjurados);
   };
+
   const handleCantidadMesasChange = (e) => {
     const selectedValue = parseInt(e.target.value, 10);
     setCantidadMesas(selectedValue);
+  };
+
+  const [carreras, setCarreras] = useState([]);
+
+  const handleFacultadChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+
+    if (value === "Facultad de veterinaria") {
+      setCarreras(["Veterinaria "]);
+    } else if (value === "Facultad de Ciencias y Tecnologia") {
+      setCarreras([
+        "Ing. Sistemas",
+        "Ing. Electronica",
+        "Ing. Eletrica",
+        "Ing. Civil",
+        "Ing. Industrial",
+      ]);
+    } else {
+      setCarreras([]);
+    }
   };
 
   const obtenerRango = (mesa) => {
@@ -452,6 +220,57 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={12} lg={12}>
+                <Box sx={{ mt: 2, marginBottom: 2 }}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel htmlFor="facultad">Facultad</InputLabel>
+                  <Select
+                    required
+                    label="Facultad"
+                    name="facultad"
+                    value={formData.facultad}
+                    onChange={handleFacultadChange}
+                    inputProps={{
+                      name: "facultad",
+                      id: "facultad",
+                    }}
+                  >
+                    <MenuItem value="Facultad de veterinaria">
+                      Facultad de veterinaria
+                    </MenuItem>
+                    <MenuItem value="Facultad de Ciencias y Tecnologia">
+                      Facultad de Ciencias y tecnologia
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+
+              <Box sx={{ mt: 2, marginBottom: 2 }}>
+                <FormControl fullWidth variant="outlined">
+                  <InputLabel htmlFor="carrera">Carrera</InputLabel>
+                  <Select
+                    required
+                    label="Carrera"
+                    name="carrera"
+                    value={formData.carrera}
+                    onChange={(e) => {
+                      setFormData({
+                        ...formData,
+                        carrera: e.target.value,
+                      });
+                    }}
+                    inputProps={{
+                      name: "carrera",
+                      id: "carrera",
+                    }}
+                  >
+                    {carreras.map((carrera, index) => (
+                      <MenuItem key={index} value={carrera}>
+                        {carrera}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <FormControl fullWidth variant="outlined">
                     <InputLabel htmlFor="cantidadMesas">
@@ -470,13 +289,6 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
                     >
                       <MenuItem value={1}>1</MenuItem>
                       <MenuItem value={2}>2</MenuItem>
-                      <MenuItem value={3}>3</MenuItem>
-                      <MenuItem value={4}>4</MenuItem>
-                      <MenuItem value={5}>5</MenuItem>
-                      <MenuItem value={6}>6</MenuItem>
-                      <MenuItem value={7}>7</MenuItem>
-                      <MenuItem value={8}>8</MenuItem>
-                      <MenuItem value={9}>9</MenuItem>
                     </Select>
                   </FormControl>
                   <Button
@@ -515,7 +327,7 @@ const Form_Eleccion = ({ onClose, edit, onNuevoClick }) => {
                 </TableBody>
               </Table>
             </TableContainer>
-
+            
             <Button
               type="submit"
               sx={{
@@ -573,7 +385,6 @@ const CollapsibleTable = ({ jurados }) => {
 export default Form_Eleccion;
 
 Form_Eleccion.propTypes = {
-  onClose: PropTypes.func.isRequired,
   edit: PropTypes.bool.isRequired,
-  onNuevoClick: PropTypes.func.isRequired,
+  function_add: PropTypes.func.isRequired,
 };
